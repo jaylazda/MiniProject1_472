@@ -27,6 +27,7 @@ drug_df['Cholesterol'] = pd.Categorical(drug_df['Cholesterol'], ordered=True, ca
 # Task 2.5 split the dataset
 X_train, X_test, y_train, y_test = train_test_split(drug_df.loc[:, drug_df.columns != 'Drug'], drug_df['Drug'])
 
+# Uses different classifiers to train and test the dataset
 def run_classifiers(file, X_train, X_test, y_train, y_test, stats):
     # Task 2.6a NB Classifier
     file.write(f'(a) ******************************** Gaussian NB Classifier ********************************\n')

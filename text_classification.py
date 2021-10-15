@@ -24,49 +24,51 @@ plt.savefig('BBC-distribution.pdf')
 #initialize a count vectorizer for the data
 count_vect = CountVectorizer()
 X_train_counts = count_vect.fit_transform(bbc_train.data)
-vocab_size = len(count_vect.get_feature_names())
-num_tokens = sum(sum(X_train_counts.toarray()))
 
-class_sums = [0, 0, 0, 0, 0]
-class_zeros = [0, 0, 0, 0, 0]
+# Task 1.5 Split dataset into 80% training and 20% test
+X_train, X_test, y_train, y_test = train_test_split(bbc_train.data, bbc_train.target, test_size=0.2, train_size=0.8, random_state=None)
 
-print(X_train_counts.get_shape())
-for row, category in zip(X_train_counts.toarray(), bbc_train.target):
-    class_sums[category] += row.sum()
-class_sums = list(zip(bbc_train.target_names, class_sums))
-
-ones = [x for row in X_train_counts.toarray() for x in row if x == 1]
-freq_one = (sum(ones), sum(ones)/num_tokens)
-
-#initialize a tfidf transformer for the data
-tfidf_transformer = TfidfTransformer()
-X_train_tfidf = tfidf_transformer.fit_transform(X_train_counts)
-
-"""
-# Task 1.5 TODO: Do we use tfidf here or counts?
-X_train, X_test, y_train, y_test = train_test_split(X_train_tfidf, bbc_train.target, test_size=0.2, train_size=0.8, random_state=None)
-
-# Task 1.6
-clf = MultinomialNB().fit(X_train, y_train)
-predicted = clf.predict(X_test)
-print(predicted)
-"""
+# Task 1.6 Train a multinomial Naive Bayes Classifier on the training set
 text_clf = Pipeline([
     ('vect', CountVectorizer()),
     ('tfidf', TfidfTransformer()),
     ('clf', MultinomialNB()),
 ])
-
-X_train, X_test, y_train, y_test = train_test_split(bbc_train.data, bbc_train.target, test_size=0.2, train_size=0.8, random_state=None)
-
 text_clf.fit(X_train, y_train)
-
 y_pred = text_clf.predict(X_test)
 
+# The following section is used to help answer questions 1.7.e, 1.7.f, 1.7.i, 1.7.j, 1.7.k
+vocab_size = len(count_vect.get_feature_names())
+num_tokens = sum(sum(X_train_counts.toarray()))
+class_sums = [0, 0, 0, 0, 0]
+class_zeros = [0, 0, 0, 0, 0]
 n = [x for x in n if x > 0]
 priors = list(zip(bbc_train.target_names, [x/sum(n) for x in n]))
 
-def add_to_file(title, file, y_test, y_pred, target_names, priors, vocab_size, num_tokens, class_sums, freq_one):
+# The indices of each of the inner lists corresponds to the indices of the list count_vect.get_feature_names()
+class_frequencies = [
+    [0] * vocab_size,
+    [0] * vocab_size,
+    [0] * vocab_size,
+    [0] * vocab_size,
+    [0] * vocab_size
+]
+corpus_frequencies = [0] * vocab_size
+i = 0
+# Add up the frequencies for each word based on class and whole corpus
+print('Processing lots of data, this may take a while...')
+for row, category in zip(X_train_counts.toarray(), bbc_train.target):
+    for index, word_freq in enumerate(row):
+        class_frequencies[category][index] += word_freq
+        corpus_frequencies[index] += word_freq
+    class_sums[category] += row.sum()
+class_sums = list(zip(bbc_train.target_names, class_sums))
+
+num_ones =  sum([1 for freq in corpus_frequencies if freq == 1])
+freq_one = (num_ones, num_ones/num_tokens)
+
+# Writes different statistics about the model to a file
+def add_to_file(title, file, y_test, y_pred):
     file.write(f'(a) ******************************** {title} ********************************\n')
     file.write('\n(b) Confusion Matrix:\n')
     file.write(str(confusion_matrix(y_test, y_pred)))
@@ -80,16 +82,29 @@ def add_to_file(title, file, y_test, y_pred, target_names, priors, vocab_size, n
     for name, num in class_sums:
         file.write(f'{name}: {num}\n')
     file.write(f'\n(h) Number of word tokens in total: {num_tokens}\n')
-    file.write('\n(i) Number of words with frequency 0 in each class:\n') #TODO
+    file.write('\n(i) Number of words with frequency 0 in each class:\n')
+    i = 0
+    for name, num in class_sums:
+        file.write(f'{name}:\n')
+        num_zeros =  sum([1 for freq in class_frequencies[i] if freq == 0])
+        freq_zeros = (num_zeros, num_zeros/num)
+        file.write(f'words: {freq_zeros[0]} percentage: {freq_zeros[1]}\n')
+        i += 1
     file.write('\n(j) Number of words with frequency 1 in the corpus:\n')
-    file.write(f'Words: {freq_one[0]} Percentage: {freq_one[1]}\n')
-    file.write(f'\n(k) Log Prob of the word \'programme\': ') #TODO
-    file.write(f'\nLog Prob of the word \'laptops\': \n\n\n') #TODO
+    file.write(f'words: {freq_one[0]} percentage: {freq_one[1]}\n')
+    file.write(f'\n(k) Log Prob of the word \'programme\':\n')
+    logProb = np.log(corpus_frequencies[count_vect.get_feature_names().index('programme')]/num_tokens)/np.log(2)
+    file.write(f'{str(logProb)}')
+    file.write(f'\nLog Prob of the word \'laptops\':\n')
+    logProb = np.log(corpus_frequencies[count_vect.get_feature_names().index('laptops')]/num_tokens)/np.log(2)
+    file.write(f'{str(logProb)}\n\n\n')
 
+# Open bbc-performance.txt to write to
 with open('bbc-performance.txt', 'w') as file:
     # Task 1.7
     title = "MultinomialNB default values, try 1"
-    add_to_file(title, file, y_test, y_pred, bbc_train.target_names, priors, vocab_size, num_tokens, class_sums, freq_one)
+    print(f'Writing to file, {title}')
+    add_to_file(title, file, y_test, y_pred)
 
     # Task 1.8
     text_clf = Pipeline([
@@ -100,7 +115,8 @@ with open('bbc-performance.txt', 'w') as file:
     text_clf.fit(X_train, y_train)
     y_pred = text_clf.predict(X_test)
     title = "MultinomialNB default values, try 2"
-    add_to_file(title, file, y_test, y_pred, bbc_train.target_names, priors, vocab_size, num_tokens, class_sums, freq_one)
+    print(f'Writing to file, {title}')
+    add_to_file(title, file, y_test, y_pred)
 
     # Task 1.9
     text_clf = Pipeline([
@@ -111,7 +127,8 @@ with open('bbc-performance.txt', 'w') as file:
     text_clf.fit(X_train, y_train)
     y_pred = text_clf.predict(X_test)
     title = "MultinomialNB default values, try 3"
-    add_to_file(title, file, y_test, y_pred, bbc_train.target_names, priors, vocab_size, num_tokens, class_sums, freq_one)
+    print(f'Writing to file, {title}')
+    add_to_file(title, file, y_test, y_pred)
 
     # Task 1.10
     text_clf = Pipeline([
@@ -122,4 +139,6 @@ with open('bbc-performance.txt', 'w') as file:
     text_clf.fit(X_train, y_train)
     y_pred = text_clf.predict(X_test)
     title = "MultinomialNB default values, try 4"
-    add_to_file(title, file, y_test, y_pred, bbc_train.target_names, priors, vocab_size, num_tokens, class_sums, freq_one)
+    print(f'Writing to file, {title}')
+    add_to_file(title, file, y_test, y_pred)
+    print('Finished!')

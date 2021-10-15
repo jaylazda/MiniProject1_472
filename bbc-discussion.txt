@@ -3,4 +3,10 @@ compared to the other 3 classes. The other 3 are all around the same amount (386
 in the test set (445 if using 20% of data), we would favor a higher precision over a higher recall. We want to be confident that the documents 
 of our class of interest actually belong to that class. 
  
-(b) 
+(b) The results from the first two attempts are the exact same, with a macro avg precision of 0.95 and a macro avg recall of 0.94.
+This is likely because we did not change anything in the model, we just ran it again therefore it produced the same results. The third
+attempt with smoothing set to 0.0001 resulted in a macro avg precision and macro avg recall of 0.98, better in both categories than the
+first two models. The last model (smoothing = 0.9) resulted in a macro avg precision of 0.96 and macro avg recall of 0.95, so better than the first two
+but not as accurate as the 3rd model. This means the smoothing value of 0.0001 is the best out of these trials. The addition of a smoothing parameter
+eliminates any strange scenarios when there are zeros present for certain word frequencies which explains the difference between the first two models
+and the last two. 
