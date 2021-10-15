@@ -4,8 +4,10 @@ from sklearn.naive_bayes import MultinomialNB
 from sklearn.datasets import load_files
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix, classification_report, accuracy_score
+from collections import Counter
 import numpy as np
 import matplotlib.pyplot as plt
+import pandas as pd
 
 # Task 1.3
 #load the BBC text data into a training set
@@ -24,6 +26,17 @@ count_vect = CountVectorizer()
 X_train_counts = count_vect.fit_transform(bbc_train.data)
 vocab_size = len(count_vect.get_feature_names())
 num_tokens = sum(sum(X_train_counts.toarray()))
+
+class_sums = [0, 0, 0, 0, 0]
+class_zeros = [0, 0, 0, 0, 0]
+
+print(X_train_counts.get_shape())
+for row, category in zip(X_train_counts.toarray(), bbc_train.target):
+    class_sums[category] += row.sum()
+class_sums = list(zip(bbc_train.target_names, class_sums))
+
+ones = [x for row in X_train_counts.toarray() for x in row if x == 1]
+freq_one = (sum(ones), sum(ones)/num_tokens)
 
 #initialize a tfidf transformer for the data
 tfidf_transformer = TfidfTransformer()
@@ -53,18 +66,60 @@ y_pred = text_clf.predict(X_test)
 n = [x for x in n if x > 0]
 priors = list(zip(bbc_train.target_names, [x/sum(n) for x in n]))
 
-def add_to_file(file, y_test, y_pred, target_names, priors, vocab_size, num_tokens):
-    file.write('******************************** MultinomialNB default values, try 1 ********************************\n')
-    file.write('\nConfusion Matrix:\n')
+def add_to_file(title, file, y_test, y_pred, target_names, priors, vocab_size, num_tokens, class_sums, freq_one):
+    file.write(f'(a) ******************************** {title} ********************************\n')
+    file.write('\n(b) Confusion Matrix:\n')
     file.write(str(confusion_matrix(y_test, y_pred)))
-    file.write('\n\nClassification Report:\n')
+    file.write('\n\n(c)(d) Classification Report:\n')
     file.write(str(classification_report(y_test, y_pred, target_names=bbc_train.target_names)))
-    file.write('\nPrior Probability:\n')
+    file.write('\n(e) Prior Probability:\n')
     for name, prob in priors:
         file.write(f'{name}: {prob}\n')
-    file.write(f'\nSize of vocabulary: {vocab_size} different words')
-    file.write(f'\n\nNumber of word tokens in each class: {num_tokens}') #TODO:loop thru each class
-    file.write(f'\n\nNumber of word tokens in total: {num_tokens}')
+    file.write(f'\n(f) Size of vocabulary: {vocab_size} different words')
+    file.write('\n\n(g) Number of word tokens in each class:\n')
+    for name, num in class_sums:
+        file.write(f'{name}: {num}\n')
+    file.write(f'\n(h) Number of word tokens in total: {num_tokens}\n')
+    file.write('\n(i) Number of words with frequency 0 in each class:\n') #TODO
+    file.write('\n(j) Number of words with frequency 1 in the corpus:\n')
+    file.write(f'Words: {freq_one[0]} Percentage: {freq_one[1]}\n')
+    file.write(f'\n(k) Log Prob of the word \'programme\': ') #TODO
+    file.write(f'\nLog Prob of the word \'laptops\': \n\n\n') #TODO
 
 with open('bbc-performance.txt', 'w') as file:
-    add_to_file(file, y_test, y_pred, bbc_train.target_names, priors, vocab_size, num_tokens)
+    # Task 1.7
+    title = "MultinomialNB default values, try 1"
+    add_to_file(title, file, y_test, y_pred, bbc_train.target_names, priors, vocab_size, num_tokens, class_sums, freq_one)
+
+    # Task 1.8
+    text_clf = Pipeline([
+        ('vect', CountVectorizer()),
+        ('tfidf', TfidfTransformer()),
+        ('clf', MultinomialNB()),
+    ])
+    text_clf.fit(X_train, y_train)
+    y_pred = text_clf.predict(X_test)
+    title = "MultinomialNB default values, try 2"
+    add_to_file(title, file, y_test, y_pred, bbc_train.target_names, priors, vocab_size, num_tokens, class_sums, freq_one)
+
+    # Task 1.9
+    text_clf = Pipeline([
+        ('vect', CountVectorizer()),
+        ('tfidf', TfidfTransformer()),
+        ('clf', MultinomialNB(alpha=0.0001)),
+    ])
+    text_clf.fit(X_train, y_train)
+    y_pred = text_clf.predict(X_test)
+    title = "MultinomialNB default values, try 3"
+    add_to_file(title, file, y_test, y_pred, bbc_train.target_names, priors, vocab_size, num_tokens, class_sums, freq_one)
+
+    # Task 1.10
+    text_clf = Pipeline([
+        ('vect', CountVectorizer()),
+        ('tfidf', TfidfTransformer()),
+        ('clf', MultinomialNB(alpha=0.9)),
+    ])
+    text_clf.fit(X_train, y_train)
+    y_pred = text_clf.predict(X_test)
+    title = "MultinomialNB default values, try 4"
+    add_to_file(title, file, y_test, y_pred, bbc_train.target_names, priors, vocab_size, num_tokens, class_sums, freq_one)
