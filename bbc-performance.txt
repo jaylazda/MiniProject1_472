@@ -1,0 +1,196 @@
+(a) ******************************** MultinomialNB default values, try 1 ********************************
+
+(b) Confusion Matrix:
+[[ 99   0   2   0   2]
+ [  1  55   5   1   0]
+ [  0   0  80   0   2]
+ [  0   0   0 117   0]
+ [  0   0   3   0  78]]
+
+(c)(d) Classification Report:
+               precision    recall  f1-score   support
+
+     business       0.99      0.96      0.98       103
+entertainment       1.00      0.89      0.94        62
+     politics       0.89      0.98      0.93        82
+        sport       0.99      1.00      1.00       117
+         tech       0.95      0.96      0.96        81
+
+     accuracy                           0.96       445
+    macro avg       0.96      0.96      0.96       445
+ weighted avg       0.97      0.96      0.96       445
+
+(e) Prior Probability:
+business: 0.2292134831460674
+entertainment: 0.17348314606741572
+politics: 0.18741573033707865
+sport: 0.22966292134831462
+tech: 0.1802247191011236
+
+(f) Size of vocabulary: 29421 different words
+
+(g) Number of word tokens in each class:
+business: 164663
+entertainment: 124893
+politics: 185208
+sport: 162953
+tech: 198640
+
+(h) Number of word tokens in total: 836357
+
+(i) Number of words with frequency 0 in each class:
+
+(j) Number of words with frequency 1 in the corpus:
+Words: 319824 Percentage: 0.3824012951407114
+
+(k) Log Prob of the word 'programme': 
+Log Prob of the word 'laptops': 
+
+
+(a) ******************************** MultinomialNB default values, try 2 ********************************
+
+(b) Confusion Matrix:
+[[ 99   0   2   0   2]
+ [  1  55   5   1   0]
+ [  0   0  80   0   2]
+ [  0   0   0 117   0]
+ [  0   0   3   0  78]]
+
+(c)(d) Classification Report:
+               precision    recall  f1-score   support
+
+     business       0.99      0.96      0.98       103
+entertainment       1.00      0.89      0.94        62
+     politics       0.89      0.98      0.93        82
+        sport       0.99      1.00      1.00       117
+         tech       0.95      0.96      0.96        81
+
+     accuracy                           0.96       445
+    macro avg       0.96      0.96      0.96       445
+ weighted avg       0.97      0.96      0.96       445
+
+(e) Prior Probability:
+business: 0.2292134831460674
+entertainment: 0.17348314606741572
+politics: 0.18741573033707865
+sport: 0.22966292134831462
+tech: 0.1802247191011236
+
+(f) Size of vocabulary: 29421 different words
+
+(g) Number of word tokens in each class:
+business: 164663
+entertainment: 124893
+politics: 185208
+sport: 162953
+tech: 198640
+
+(h) Number of word tokens in total: 836357
+
+(i) Number of words with frequency 0 in each class:
+
+(j) Number of words with frequency 1 in the corpus:
+Words: 319824 Percentage: 0.3824012951407114
+
+(k) Log Prob of the word 'programme': 
+Log Prob of the word 'laptops': 
+
+
+(a) ******************************** MultinomialNB default values, try 3 ********************************
+
+(b) Confusion Matrix:
+[[ 98   0   2   0   3]
+ [  0  59   0   0   3]
+ [  0   0  80   0   2]
+ [  0   0   1 116   0]
+ [  1   1   0   0  79]]
+
+(c)(d) Classification Report:
+               precision    recall  f1-score   support
+
+     business       0.99      0.95      0.97       103
+entertainment       0.98      0.95      0.97        62
+     politics       0.96      0.98      0.97        82
+        sport       1.00      0.99      1.00       117
+         tech       0.91      0.98      0.94        81
+
+     accuracy                           0.97       445
+    macro avg       0.97      0.97      0.97       445
+ weighted avg       0.97      0.97      0.97       445
+
+(e) Prior Probability:
+business: 0.2292134831460674
+entertainment: 0.17348314606741572
+politics: 0.18741573033707865
+sport: 0.22966292134831462
+tech: 0.1802247191011236
+
+(f) Size of vocabulary: 29421 different words
+
+(g) Number of word tokens in each class:
+business: 164663
+entertainment: 124893
+politics: 185208
+sport: 162953
+tech: 198640
+
+(h) Number of word tokens in total: 836357
+
+(i) Number of words with frequency 0 in each class:
+
+(j) Number of words with frequency 1 in the corpus:
+Words: 319824 Percentage: 0.3824012951407114
+
+(k) Log Prob of the word 'programme': 
+Log Prob of the word 'laptops': 
+
+
+(a) ******************************** MultinomialNB default values, try 4 ********************************
+
+(b) Confusion Matrix:
+[[ 99   0   2   0   2]
+ [  1  56   5   0   0]
+ [  0   0  80   0   2]
+ [  0   0   0 117   0]
+ [  0   0   3   0  78]]
+
+(c)(d) Classification Report:
+               precision    recall  f1-score   support
+
+     business       0.99      0.96      0.98       103
+entertainment       1.00      0.90      0.95        62
+     politics       0.89      0.98      0.93        82
+        sport       1.00      1.00      1.00       117
+         tech       0.95      0.96      0.96        81
+
+     accuracy                           0.97       445
+    macro avg       0.97      0.96      0.96       445
+ weighted avg       0.97      0.97      0.97       445
+
+(e) Prior Probability:
+business: 0.2292134831460674
+entertainment: 0.17348314606741572
+politics: 0.18741573033707865
+sport: 0.22966292134831462
+tech: 0.1802247191011236
+
+(f) Size of vocabulary: 29421 different words
+
+(g) Number of word tokens in each class:
+business: 164663
+entertainment: 124893
+politics: 185208
+sport: 162953
+tech: 198640
+
+(h) Number of word tokens in total: 836357
+
+(i) Number of words with frequency 0 in each class:
+
+(j) Number of words with frequency 1 in the corpus:
+Words: 319824 Percentage: 0.3824012951407114
+
+(k) Log Prob of the word 'programme': 
+Log Prob of the word 'laptops': 
+
+

@@ -1,0 +1,12 @@
+Does the same model give you the same performance every time?
+
+It depends on the model. For example, both the Base Decision Tree and the Top Decision Tree models result in perfect
+scores each time. Their average accuracy, macro and weighted F1 scores are all 1.0 with 0 standard deviation. 
+This means that the drug data is easily classified by decision trees. The Gaussian Naive Bayes model and the Perceptron model
+also result in the same results every time. They both have extremely small values (1e-16 and 5e-17) for one of the F1 averages,
+but this is likely due to a rounding error with the small digits of the other scores. 
+
+The only 2 models that don't result in the same performance every time are the Base Multi-Layered Perceptron and the Top 
+Multi-Layered Perceptron models. This is likely because for each time the models are trained, they reach the maximum number of 
+iterations (200) but haven't converged yet. (I suppressed this warning in my program because it prints a lot) Since the models 
+haven't converged, they will have different weights for each perceptron in the neural network resulting in different performance.

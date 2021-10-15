@@ -1,0 +1,6 @@
+(a) The classes are pretty well balanced, there are 2 classes (business and sport) with about 100-150 more documents
+compared to the other 3 classes. The other 3 are all around the same amount (386, 417, 401). Since there are a lot of documents
+in the test set (445 if using 20% of data), we would favor a higher precision over a higher recall. We want to be confident that the documents 
+of our class of interest actually belong to that class. 
+ 
+(b) 
