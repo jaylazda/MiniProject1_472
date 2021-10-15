@@ -12,7 +12,13 @@ from sklearn.metrics import confusion_matrix, classification_report, accuracy_sc
 warnings.filterwarnings('ignore')
 
 # Task 2.2 load csv file
-drug_df = pd.read_csv('./drug200.csv')
+path = input("""Enter the path to the csv file you would like to analyze: (Ex: \'drug200.csv\')
+Warning: Please ensure csv data is in the exact form: Age, Sex, BP, Cholesterol, Na_to_K, Drug\n""")
+try:
+    drug_df = pd.read_csv(path)
+except:
+    print("File path was not valid.")
+    exit(0)
 
 # Task 2.3 plot class distribution
 plt.hist(drug_df['Drug'])

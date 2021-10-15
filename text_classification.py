@@ -11,12 +11,18 @@ import pandas as pd
 
 # Task 1.3
 #load the BBC text data into a training set
-bbc_train = load_files('./BBC',encoding='latin1')
-
+path = input("Enter the path to the directory of the dataset you would like to analyze: (Ex: \'BBC\')\n")
+try:
+    bbc_train = load_files(path,encoding='latin1')
+except:
+    print("File path was not valid.")
+    exit(0)
 # Task 1.2
 n, bins, patches = plt.hist(bbc_train.target, color='blue', edgecolor='black')
 plt.title('Distribution of Instances in Each Class')
-xticks = [0, 1, 2, 3, 4]
+xticks = [0] * len(bbc_train.target_names)
+for i in range(len(xticks)):
+    xticks[i] = i
 plt.xticks(xticks, labels=bbc_train.target_names)
 plt.savefig('BBC-distribution.pdf')
 
@@ -40,8 +46,8 @@ y_pred = text_clf.predict(X_test)
 # The following section is used to help answer questions 1.7.e, 1.7.f, 1.7.i, 1.7.j, 1.7.k
 vocab_size = len(count_vect.get_feature_names())
 num_tokens = sum(sum(X_train_counts.toarray()))
-class_sums = [0, 0, 0, 0, 0]
-class_zeros = [0, 0, 0, 0, 0]
+class_sums = [0] * len(bbc_train.target_names)
+class_zeros = [0] * len(bbc_train.target_names)
 n = [x for x in n if x > 0]
 priors = list(zip(bbc_train.target_names, [x/sum(n) for x in n]))
 
