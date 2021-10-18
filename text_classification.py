@@ -29,10 +29,10 @@ plt.savefig('BBC-distribution.pdf')
 # Task 1.4
 #initialize a count vectorizer for the data
 count_vect = CountVectorizer()
-X_train_counts = count_vect.fit_transform(bbc_train.data)
 
 # Task 1.5 Split dataset into 80% training and 20% test
 X_train, X_test, y_train, y_test = train_test_split(bbc_train.data, bbc_train.target, test_size=0.2, train_size=0.8, random_state=None)
+X_train_counts = count_vect.fit_transform(X_train)
 
 # Task 1.6 Train a multinomial Naive Bayes Classifier on the training set
 text_clf = Pipeline([
@@ -45,11 +45,16 @@ y_pred = text_clf.predict(X_test)
 
 # The following section is used to help answer questions 1.7.e, 1.7.f, 1.7.i, 1.7.j, 1.7.k
 vocab_size = len(count_vect.get_feature_names())
-num_tokens = sum(sum(X_train_counts.toarray()))
+# Get tokens in entire corpus (train and test set)
+num_tokens = sum(sum(X_train_counts.toarray())) + sum(sum(count_vect.fit_transform(X_test).toarray())) 
+print(num_tokens)
 class_sums = [0] * len(bbc_train.target_names)
 class_zeros = [0] * len(bbc_train.target_names)
-n = [x for x in n if x > 0]
-priors = list(zip(bbc_train.target_names, [x/sum(n) for x in n]))
+class_docs = [0, 0, 0, 0, 0]
+for x in y_train:
+    class_docs[x] += 1
+print(len(y_train))
+priors = list(zip(bbc_train.target_names, [x/len(y_train) for x in class_docs]))
 
 # The indices of each of the inner lists corresponds to the indices of the list count_vect.get_feature_names()
 class_frequencies = [
@@ -63,7 +68,7 @@ corpus_frequencies = [0] * vocab_size
 i = 0
 # Add up the frequencies for each word based on class and whole corpus
 print('Processing lots of data, this may take a while...')
-for row, category in zip(X_train_counts.toarray(), bbc_train.target):
+for row, category in zip(X_train_counts.toarray(), y_train):
     for index, word_freq in enumerate(row):
         class_frequencies[category][index] += word_freq
         corpus_frequencies[index] += word_freq
