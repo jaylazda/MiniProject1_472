@@ -91,7 +91,7 @@ def run_classifiers(file, X_train, X_test, y_train, y_test, stats):
 
     # Task 2.6c Top-DT Classifier
     file.write(f'\n\n(a) ******************************** Top Decision Tree Classifier ********************************\n')
-    params = {'criterion': ['gini', 'entropy'], 'max_depth': [6, 17], 'min_samples_split': [5, 11, 19]}
+    params = {'criterion': ['gini', 'entropy'], 'max_depth': [3, 5], 'min_samples_split': [5, 11, 19]}
     clf = GridSearchCV(DecisionTreeClassifier(), param_grid=params)
     clf.fit(X_train, y_train)
     file.write(f'Best hyper-parameters: {clf.best_params_}\n')

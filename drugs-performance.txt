@@ -2,194 +2,194 @@
 
 (b) Confusion Matrix:
 [[ 6  0  0  0  0]
- [ 1  2  0  0  0]
- [ 0  0  3  0  0]
- [ 0  0  0 10  0]
- [ 4  0  4  0 20]]
+ [ 0  3  0  0  0]
+ [ 0  0  5  0  0]
+ [ 0  0  0 14  4]
+ [ 2  1  2  0 13]]
 
 (c)(d) Classification Report:
               precision    recall  f1-score   support
 
-       drugA       0.55      1.00      0.71         6
-       drugB       1.00      0.67      0.80         3
-       drugC       0.43      1.00      0.60         3
-       drugX       1.00      1.00      1.00        10
-       drugY       1.00      0.71      0.83        28
+       drugA       0.75      1.00      0.86         6
+       drugB       0.75      1.00      0.86         3
+       drugC       0.71      1.00      0.83         5
+       drugX       1.00      0.78      0.88        18
+       drugY       0.76      0.72      0.74        18
 
     accuracy                           0.82        50
-   macro avg       0.79      0.88      0.79        50
-weighted avg       0.91      0.82      0.84        50
+   macro avg       0.80      0.90      0.83        50
+weighted avg       0.84      0.82      0.82        50
 
 
 (a) ******************************** Base Decision Tree Classifier ********************************
 
 (b) Confusion Matrix:
 [[ 6  0  0  0  0]
- [ 1  2  0  0  0]
- [ 0  0  3  0  0]
- [ 0  0  0  9  1]
- [ 0  0  0  0 28]]
+ [ 0  3  0  0  0]
+ [ 0  0  5  0  0]
+ [ 0  0  0 17  1]
+ [ 0  0  0  0 18]]
 
 (c)(d) Classification Report:
               precision    recall  f1-score   support
 
-       drugA       0.86      1.00      0.92         6
-       drugB       1.00      0.67      0.80         3
-       drugC       1.00      1.00      1.00         3
-       drugX       1.00      0.90      0.95        10
-       drugY       0.97      1.00      0.98        28
+       drugA       1.00      1.00      1.00         6
+       drugB       1.00      1.00      1.00         3
+       drugC       1.00      1.00      1.00         5
+       drugX       1.00      0.94      0.97        18
+       drugY       0.95      1.00      0.97        18
 
-    accuracy                           0.96        50
-   macro avg       0.96      0.91      0.93        50
-weighted avg       0.96      0.96      0.96        50
+    accuracy                           0.98        50
+   macro avg       0.99      0.99      0.99        50
+weighted avg       0.98      0.98      0.98        50
 
 
 (a) ******************************** Top Decision Tree Classifier ********************************
-Best hyper-parameters: {'criterion': 'gini', 'max_depth': 6, 'min_samples_split': 5}
+Best hyper-parameters: {'criterion': 'gini', 'max_depth': 5, 'min_samples_split': 5}
 
 (b) Confusion Matrix:
 [[ 6  0  0  0  0]
- [ 1  2  0  0  0]
- [ 0  0  3  0  0]
- [ 0  0  0  9  1]
- [ 0  0  0  0 28]]
+ [ 0  3  0  0  0]
+ [ 0  0  5  0  0]
+ [ 0  0  0 17  1]
+ [ 0  0  0  0 18]]
 
 (c)(d) Classification Report:
               precision    recall  f1-score   support
 
-       drugA       0.86      1.00      0.92         6
-       drugB       1.00      0.67      0.80         3
-       drugC       1.00      1.00      1.00         3
-       drugX       1.00      0.90      0.95        10
-       drugY       0.97      1.00      0.98        28
+       drugA       1.00      1.00      1.00         6
+       drugB       1.00      1.00      1.00         3
+       drugC       1.00      1.00      1.00         5
+       drugX       1.00      0.94      0.97        18
+       drugY       0.95      1.00      0.97        18
 
-    accuracy                           0.96        50
-   macro avg       0.96      0.91      0.93        50
-weighted avg       0.96      0.96      0.96        50
+    accuracy                           0.98        50
+   macro avg       0.99      0.99      0.99        50
+weighted avg       0.98      0.98      0.98        50
 
 
 (a) ******************************** Perceptron Classifier ********************************
 
 (b) Confusion Matrix:
-[[ 6  0  0  0  0]
- [ 2  1  0  0  0]
- [ 0  2  0  0  1]
- [ 2  2  0  0  6]
- [ 1  0  0  0 27]]
-
-(c)(d) Classification Report:
-              precision    recall  f1-score   support
-
-       drugA       0.55      1.00      0.71         6
-       drugB       0.20      0.33      0.25         3
-       drugC       0.00      0.00      0.00         3
-       drugX       0.00      0.00      0.00        10
-       drugY       0.79      0.96      0.87        28
-
-    accuracy                           0.68        50
-   macro avg       0.31      0.46      0.37        50
-weighted avg       0.52      0.68      0.59        50
-
-
-(a) ******************************** Base Multi-Layered Perceptron Classifier ********************************
-Modified hyper-parameters: hidden_layer_sizes=(100), activation='logistic', solver='sgd'
-
-(b) Confusion Matrix:
-[[ 0  0  0  1  5]
- [ 0  0  0  3  0]
- [ 0  0  0  2  1]
- [ 0  0  0  4  6]
- [ 0  0  0  1 27]]
+[[ 0  0  0  0  6]
+ [ 0  0  0  0  3]
+ [ 0  0  0  0  5]
+ [ 0  0  0  0 18]
+ [ 0  0  0  0 18]]
 
 (c)(d) Classification Report:
               precision    recall  f1-score   support
 
        drugA       0.00      0.00      0.00         6
        drugB       0.00      0.00      0.00         3
-       drugC       0.00      0.00      0.00         3
-       drugX       0.36      0.40      0.38        10
-       drugY       0.69      0.96      0.81        28
+       drugC       0.00      0.00      0.00         5
+       drugX       0.00      0.00      0.00        18
+       drugY       0.36      1.00      0.53        18
 
-    accuracy                           0.62        50
-   macro avg       0.21      0.27      0.24        50
-weighted avg       0.46      0.62      0.53        50
+    accuracy                           0.36        50
+   macro avg       0.07      0.20      0.11        50
+weighted avg       0.13      0.36      0.19        50
+
+
+(a) ******************************** Base Multi-Layered Perceptron Classifier ********************************
+Modified hyper-parameters: hidden_layer_sizes=(100), activation='logistic', solver='sgd'
+
+(b) Confusion Matrix:
+[[ 0  0  0  3  3]
+ [ 0  0  0  3  0]
+ [ 0  0  0  2  3]
+ [ 0  0  0  6 12]
+ [ 0  0  0  0 18]]
+
+(c)(d) Classification Report:
+              precision    recall  f1-score   support
+
+       drugA       0.00      0.00      0.00         6
+       drugB       0.00      0.00      0.00         3
+       drugC       0.00      0.00      0.00         5
+       drugX       0.43      0.33      0.38        18
+       drugY       0.50      1.00      0.67        18
+
+    accuracy                           0.48        50
+   macro avg       0.19      0.27      0.21        50
+weighted avg       0.33      0.48      0.38        50
 
 
 (a) ******************************** Top Multi-Layered Perceptron Classifier ********************************
 Best hyper-parameters: {'activation': 'tanh', 'hidden_layer_sizes': (30, 50), 'solver': 'adam'}
 
 (b) Confusion Matrix:
-[[ 6  0  0  0  0]
+[[ 4  2  0  0  0]
  [ 0  3  0  0  0]
- [ 0  0  0  3  0]
- [ 1  0  0  9  0]
- [ 0  0  0  0 28]]
+ [ 0  0  0  4  1]
+ [ 2  0  0 11  5]
+ [ 0  0  0  0 18]]
 
 (c)(d) Classification Report:
               precision    recall  f1-score   support
 
-       drugA       0.86      1.00      0.92         6
-       drugB       1.00      1.00      1.00         3
-       drugC       0.00      0.00      0.00         3
-       drugX       0.75      0.90      0.82        10
-       drugY       1.00      1.00      1.00        28
+       drugA       0.67      0.67      0.67         6
+       drugB       0.60      1.00      0.75         3
+       drugC       0.00      0.00      0.00         5
+       drugX       0.73      0.61      0.67        18
+       drugY       0.75      1.00      0.86        18
 
-    accuracy                           0.92        50
-   macro avg       0.72      0.78      0.75        50
-weighted avg       0.87      0.92      0.89        50
+    accuracy                           0.72        50
+   macro avg       0.55      0.66      0.59        50
+weighted avg       0.65      0.72      0.67        50
 
 ******************************** Stats after running each model 10 times ********************************
 
 gaussian_nb:
 
 avg_accuracy: 0.82
-avg_macro_F1: 0.787843137254902
-avg_weighted_F1: 0.8353725490196078
+avg_macro_F1: 0.8330952380952381
+avg_weighted_F1: 0.8200476190476189
 std_dev_accuracy: 0.0
 std_dev_macro_F1: 0.0
 std_dev_weighted_F1: 0.0
 
 base_dt:
 
-avg_accuracy: 0.9600000000000002
-avg_macro_F1: 0.9305802968960867
-avg_weighted_F1: 0.9584183535762485
-std_dev_accuracy: 2.220446049250313e-16
-std_dev_macro_F1: 1.1102230246251565e-16
-std_dev_weighted_F1: 2.220446049250313e-16
+avg_accuracy: 0.9800000000000001
+avg_macro_F1: 0.9888803088803086
+avg_weighted_F1: 0.9799845559845559
+std_dev_accuracy: 1.1102230246251565e-16
+std_dev_macro_F1: 2.220446049250313e-16
+std_dev_weighted_F1: 0.0
 
 top_dt:
 
-avg_accuracy: 0.9600000000000002
-avg_macro_F1: 0.9305802968960867
-avg_weighted_F1: 0.9584183535762485
-std_dev_accuracy: 2.220446049250313e-16
-std_dev_macro_F1: 1.1102230246251565e-16
-std_dev_weighted_F1: 2.220446049250313e-16
+avg_accuracy: 0.9800000000000001
+avg_macro_F1: 0.9888803088803086
+avg_weighted_F1: 0.9799845559845559
+std_dev_accuracy: 1.1102230246251565e-16
+std_dev_macro_F1: 2.220446049250313e-16
+std_dev_weighted_F1: 0.0
 
 perceptron:
 
-avg_accuracy: 0.6799999999999999
-avg_macro_F1: 0.36537001897533206
-avg_weighted_F1: 0.5874478178368122
-std_dev_accuracy: 1.1102230246251565e-16
+avg_accuracy: 0.36
+avg_macro_F1: 0.10588235294117647
+avg_weighted_F1: 0.19058823529411767
+std_dev_accuracy: 0.0
 std_dev_macro_F1: 0.0
-std_dev_weighted_F1: 1.1102230246251565e-16
+std_dev_weighted_F1: 2.7755575615628914e-17
 
 base_mlp:
 
-avg_accuracy: 0.62
-avg_macro_F1: 0.23738450604122244
-avg_weighted_F1: 0.5275337597725658
-std_dev_accuracy: 0.0
-std_dev_macro_F1: 2.7755575615628914e-17
-std_dev_weighted_F1: 0.0
+avg_accuracy: 0.46399999999999997
+avg_macro_F1: 0.19800684261974588
+avg_weighted_F1: 0.3564123167155425
+std_dev_accuracy: 0.007999999999999985
+std_dev_macro_F1: 0.005163245356793722
+std_dev_weighted_F1: 0.00929384164222873
 
 top_mlp:
 
-avg_accuracy: 0.884
-avg_macro_F1: 0.6800150100563578
-avg_weighted_F1: 0.8584846464091157
-std_dev_accuracy: 0.024979991993593614
-std_dev_macro_F1: 0.07165762125935582
-std_dev_weighted_F1: 0.03164399753508746
+avg_accuracy: 0.766
+avg_macro_F1: 0.6344343360366165
+avg_weighted_F1: 0.7283398135239183
+std_dev_accuracy: 0.02537715508089904
+std_dev_macro_F1: 0.05434653511546759
+std_dev_weighted_F1: 0.033193558732543975
